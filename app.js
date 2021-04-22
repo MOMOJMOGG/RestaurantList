@@ -22,6 +22,14 @@ app.get('/restaurants/:restaurant_id', (req, res) => {
   res.render('show', { restaurant: restaurant })
 })
 
+// query searching
+app.get('/search', (req, res) => {
+  const restaurants = restaurantList.results.filter((rest) => {
+    return rest.name_en.toLowerCase().includes(req.query.keyword.toLowerCase()) || rest.name.toLowerCase().includes(req.query.keyword.toLowerCase())
+  })
+  res.render('index', { restaurants: restaurants, keyword: req.query.keyword })
+})
+
 app.listen(port, () => {
   console.log(`App is running on http://localhost:${port}.`)
 })
