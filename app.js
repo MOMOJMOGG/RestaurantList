@@ -27,7 +27,12 @@ app.get('/search', (req, res) => {
   const restaurants = restaurantList.results.filter((rest) => {
     return rest.name_en.toLowerCase().includes(req.query.keyword.toLowerCase()) || rest.name.toLowerCase().includes(req.query.keyword.toLowerCase())
   })
-  res.render('index', { restaurants: restaurants, keyword: req.query.keyword })
+
+  if (restaurants.length === 0) {
+    res.render('searching_error', { keyword: req.query.keyword })
+  } else {
+    res.render('index', { restaurants: restaurants, keyword: req.query.keyword })
+  }
 })
 
 app.listen(port, () => {
