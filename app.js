@@ -17,8 +17,8 @@ app.get('/', (req, res) => {
 })
 
 // dynamic router using params
-app.get('/restaurants/:restaurant_id', (req, res) => {
-  const restaurant = restaurantList.results.find(rest => rest.id.toString() === req.params.restaurant_id)
+app.get('/restaurants/:restaurantId', (req, res) => {
+  const restaurant = restaurantList.results.find(rest => rest.id.toString() === req.params.restaurantId)
   res.render('show', { restaurant: restaurant })
 })
 
@@ -29,7 +29,7 @@ app.get('/search', (req, res) => {
   })
 
   if (restaurants.length === 0) {
-    res.render('searching_error', { keyword: req.query.keyword })
+    res.render('searchingError', { keyword: req.query.keyword })
   } else {
     res.render('index', { restaurants: restaurants, keyword: req.query.keyword })
   }
