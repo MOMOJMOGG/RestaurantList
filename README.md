@@ -48,7 +48,9 @@ npm run start
 App is running on http://localhost:3000.
 ```
 
-6. (Option) 若想在此專案使用開發者模式，在終端機下指令，安裝 nodemon 套件，幫助自動重啟伺服器。在第四步驟，改運行 dev 腳本指令，啟動專案伺服器
+6. 在終端機下指令 Ctrl+C 兩次，關閉伺服器
+
+7. (Option) 若想在此專案使用開發者模式，在終端機下指令，安裝 nodemon 套件，幫助自動重啟伺服器。在第四步驟，改運行 dev 腳本指令，啟動專案伺服器
 
 ```
 npm install -g nodemon
