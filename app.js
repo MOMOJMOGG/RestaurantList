@@ -2,7 +2,7 @@ const express = require('express')
 const exphbs = require('express-handlebars')
 const app = express()
 const port = 3000
-const restaurantList = require('./restaurant.json')
+const RestaurantModel = require('./models/restaurant')
 
 const mongoose = require('mongoose')
 mongoose.connect('mongodb://localhost/restaurant-list', { useNewUrlParser: true, useUnifiedTopology: true })
@@ -25,27 +25,39 @@ app.set('view engine', 'hbs')
 app.use(express.static('public'))
 
 app.get('/', (req, res) => {
-  // pass the restaurant data into 'index' partial template
-  res.render('index', { restaurants: restaurantList.results })
+  RestaurantModel.find()
+    .lean()
+    .then(restaurantList => res.render('index', { restaurants: restaurantList }))
+    .catch(err => console.log(err))
 })
 
 // dynamic router using params
 app.get('/restaurants/:restaurantId', (req, res) => {
-  const restaurant = restaurantList.results.find(rest => rest.id.toString() === req.params.restaurantId)
-  res.render('show', { restaurant: restaurant })
+  RestaurantModel.find()
+    .lean()
+    .then(restaurantList => {
+      const restaurant = restaurantList.find(rest => rest.id.toString() === req.params.restaurantId)
+      res.render('show', { restaurant: restaurant })
+    })
+    .catch(err => console.log(err))
 })
 
 // query searching
 app.get('/search', (req, res) => {
-  const restaurants = restaurantList.results.filter((rest) => {
-    return rest.name_en.toLowerCase().includes(req.query.keyword.toLowerCase()) || rest.name.toLowerCase().includes(req.query.keyword.toLowerCase())
-  })
+  RestaurantModel.find()
+    .lean()
+    .then(restaurantList => {
+      const restaurants = restaurantList.filter((rest) => {
+        return rest.name_en.toLowerCase().includes(req.query.keyword.toLowerCase()) || rest.name.toLowerCase().includes(req.query.keyword.toLowerCase())
+      })
 
-  if (restaurants.length === 0) {
-    res.render('searchingError', { keyword: req.query.keyword })
-  } else {
-    res.render('index', { restaurants: restaurants, keyword: req.query.keyword })
-  }
+      if (restaurants.length === 0) {
+        res.render('searchingError', { keyword: req.query.keyword })
+      } else {
+        res.render('index', { restaurants: restaurants, keyword: req.query.keyword })
+      }
+    })
+    .catch(err => console.log(err))
 })
 
 app.listen(port, () => {
