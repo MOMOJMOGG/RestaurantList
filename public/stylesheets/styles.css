@@ -82,10 +82,49 @@ header {
   color: #0c779e;
 }
 
+.card .empty-slogan{
+  height: 180px;
+  background-image: radial-gradient(gray 10%, black 80%);
+  text-align: center;
+}
+
+.card .empty-slogan h1{
+  font-size: 1.8rem;
+  color: white;
+  line-height: 180px;
+}
+
+.card .create-btn {
+  text-align: center;
+}
+
+.card-body {
+  max-height: 102.22px;
+}
+
+.card-body .fa-plus-circle {
+  color: #0c6485;
+  line-height: 102.22px;
+  transition: transform .2s; /* Animation */
+}
+
+.card-body .fa-plus-circle:hover {
+  transform: scale(1.5);
+}
+
+
 @media screen and (max-width: 992px) {
   
   .card img{
     height: 115px;
+  }
+
+  .card .empty-slogan{
+    height: 115px;
+  }
+
+  .card .empty-slogan h1{
+    line-height: 115px;
   }
 }
 
@@ -102,4 +141,11 @@ header {
     height: auto;
   }
   
+  .card .empty-slogan{
+    height: auto;
+  }
+
+  .card .empty-slogan h1{
+    line-height: auto;
+  }
 }
