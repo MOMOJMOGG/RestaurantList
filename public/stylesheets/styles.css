@@ -82,34 +82,38 @@ header {
   color: #0c779e;
 }
 
-.card .empty-slogan{
+#empty-slogan .slogan{
   height: 180px;
   background-image: radial-gradient(gray 10%, black 80%);
   text-align: center;
 }
 
-.card .empty-slogan h1{
+#empty-slogan h1{
   font-size: 1.8rem;
   color: white;
   line-height: 180px;
 }
 
-.card .create-btn {
+#empty-slogan .create-btn {
   text-align: center;
 }
 
-.card-body {
-  max-height: 102.22px;
+#empty-slogan .card-body {
+  height: 102.22px;
 }
 
-.card-body .fa-plus-circle {
+#empty-slogan .card-body .fa-plus-circle {
   color: #0c6485;
-  line-height: 102.22px;
+  /* line-height: 102.22px; */
   transition: transform .2s; /* Animation */
 }
 
-.card-body .fa-plus-circle:hover {
+#empty-slogan .card-body .fa-plus-circle:hover {
   transform: scale(1.5);
+}
+
+.invisible {
+  display: none;
 }
 
 

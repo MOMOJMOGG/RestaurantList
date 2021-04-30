@@ -1,8 +1,16 @@
 const express = require('express')
 const exphbs = require('express-handlebars')
+const hbshelpers = require("handlebars-helpers")
+const multihelpers = hbshelpers()
+
 const app = express()
 const port = 3000
 const RestaurantModel = require('./models/restaurant')
+const creatorScanner = require('./creatorScanner')
+
+app.use(express.urlencoded({
+  extended: true
+}));
 
 const mongoose = require('mongoose')
 mongoose.connect('mongodb://localhost/restaurant-list', { useNewUrlParser: true, useUnifiedTopology: true })
@@ -18,7 +26,7 @@ db.once('open', () => {
 })
 
 // set template engine
-app.engine('hbs', exphbs({ defaultLayout: 'main', extname: '.hbs' }))
+app.engine('hbs', exphbs({ defaultLayout: 'main', extname: '.hbs', helpers: multihelpers }))
 app.set('view engine', 'hbs')
 
 // setting static files
@@ -33,12 +41,10 @@ app.get('/', (req, res) => {
 
 // dynamic router using params
 app.get('/restaurants/:restaurantId', (req, res) => {
-  RestaurantModel.find()
+  const restaurantId = req.params.restaurantId
+  return RestaurantModel.findById(restaurantId)
     .lean()
-    .then(restaurantList => {
-      const restaurant = restaurantList.find(rest => rest.id.toString() === req.params.restaurantId)
-      res.render('show', { restaurant: restaurant })
-    })
+    .then((restaurant) => res.render('show', { restaurant: restaurant }))
     .catch(err => console.log(err))
 })
 
@@ -57,6 +63,29 @@ app.get('/search', (req, res) => {
         res.render('index', { restaurants: restaurants, keyword: req.query.keyword })
       }
     })
+    .catch(err => console.log(err))
+})
+
+app.get('/new', (req, res) => {
+  return res.render('new')
+})
+
+app.post('/new/create', (req, res) => {
+  const options = req.body
+  const results = creatorScanner(options)
+  RestaurantModel.create({
+    id: 8 + 1,
+    name: results[0].restName,
+    name_en: results[0].restNameEn,
+    category: results[0].restCategory,
+    image: results[0].restImage,
+    location: results[0].restLocation,
+    phone: results[0].restPhone,
+    google_map: results[0].restGoogleMap,
+    rating: results[0].restRating,
+    description: results[0].restDescription
+  })
+    .then(() => res.render('new', { options: results[0], createSucceed: results[1] }))
     .catch(err => console.log(err))
 })
 
