@@ -2,9 +2,13 @@
 <div class="container">
   <div class="row">
     <div class="col-12 col-md-10 mx-auto">
-      <a href="/restaurants/{{this._id}}/edit"><span class="badge badge-info font-weight-normal"
+      <a href="/restaurants/{{restaurant._id}}/edit"><span class="badge badge-info font-weight-normal mr-3"
           style="font-size: 22px;">Edit
           <i class="fas fa-edit"></i></span></a>
+      <form action="/restaurants/{{restaurant._id}}/delete" method="POST" class="d-inline">
+        <button class="btn btn-dark btn-sm" style="font-size: 22px;" type="submit">Del
+          <i class="fas fa-trash-alt"></i></button>
+      </form>
       <p class="mb-1  mt-5">
         <span class="text-secondary">
           <i class="fas fa-utensils pr-2"></i>

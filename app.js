@@ -126,6 +126,14 @@ app.post('/restaurants/:restaurantId/edit', (req, res) => {
     .catch(err => console.log(err))
 })
 
+app.post('/restaurants/:restaurantId/delete', (req, res) => {
+  const restaurantId = req.params.restaurantId
+  return RestaurantModel.findById(restaurantId)
+    .then(restaurant => restaurant.remove())
+    .then(() => res.redirect('/'))
+    .catch(error => console.log(error))
+})
+
 app.listen(port, () => {
   console.log(`App is running on http://localhost:${port}.`)
 })
