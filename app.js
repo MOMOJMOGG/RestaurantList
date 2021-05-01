@@ -89,6 +89,43 @@ app.post('/new/create', (req, res) => {
     .catch(err => console.log(err))
 })
 
+app.get('/restaurants/:restaurantId/edit', (req, res) => {
+  const restaurantId = req.params.restaurantId
+  return RestaurantModel.findById(restaurantId)
+    .lean()
+    .then((restaurant) => res.render('edit', { restaurant: restaurant }))
+    .catch(err => console.log(err))
+})
+
+app.get('/restaurants/:restaurantId/edit/succeed', (req, res) => {
+  const restaurantId = req.params.restaurantId
+  return RestaurantModel.findById(restaurantId)
+    .lean()
+    .then((restaurant) => res.render('edit', { restaurant: restaurant, createSucceed: true }))
+    .catch(err => console.log(err))
+})
+
+app.post('/restaurants/:restaurantId/edit', (req, res) => {
+  const restaurantId = req.params.restaurantId
+  const options = req.body
+  const results = creatorScanner(options)
+  return RestaurantModel.findById(restaurantId)
+    .then(restaurant => {
+      restaurant.name = results[0].restName,
+        restaurant.name_en = results[0].restNameEn,
+        restaurant.category = results[0].restCategory,
+        restaurant.image = results[0].restImage,
+        restaurant.location = results[0].restLocation,
+        restaurant.phone = results[0].restPhone,
+        restaurant.google_map = results[0].restGoogleMap,
+        restaurant.rating = results[0].restRating,
+        restaurant.description = results[0].restDescription
+      return restaurant.save()
+    })
+    .then(() => res.redirect(`/restaurants/${restaurantId}/edit/succeed`))
+    .catch(err => console.log(err))
+})
+
 app.listen(port, () => {
   console.log(`App is running on http://localhost:${port}.`)
 })
