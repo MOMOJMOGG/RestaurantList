@@ -127,7 +127,9 @@
             </div>
             {{/if}}
             <div class="d-flex flex-row-reverse">
-              <button class="btn btn-success" type="submit">Add Restaurant</button>
+              <a href="/"><button class="btn btn btn-outline-primary" type="button">Back to Home Page</button></a>
+              <button class="btn btn-success mr-3" type="submit" {{#if createSucceed}} disabled {{/if}}>Add
+                Restaurant</button>
             </div>
           </form>
         </div>
