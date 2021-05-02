@@ -21,6 +21,8 @@
   <div class="row">
     <div class="col-md-10 col-12 mx-auto">
       <div class="card-deck">
+
+        <!-- restaurant cards loaded from DB -->
         {{#each restaurants}}
         <div class="d-print-inline-block col-4">
           <div class="card mb-3 text-secondary ">
@@ -32,17 +34,31 @@
               <div class="restaurant-category mb-1">
                 <i class="fas fa-utensils pr-2"></i> {{this.category}}
               </div>
-              <div class="d-flex justify-content-between" style="height: 24px;">
-                <span class="badge badge-pill badge-danger font-weight-normal p-0" style="line-height: 24px;">
-                  {{this.rating}}
-                  <i class="fas fa-star fa-xs"></i>
-                </span>
-                <span class="operation-badge" style="height: 24px;">
-                  <a href="/restaurants/{{this._id}}/edit" style="line-height: 24px;"><span
-                      class="badge badge-info font-weight-normal p-0" style="line-height: 24px;margin:1.11px 0">Edit
-                      <i class="fas fa-edit"></i></span></a>
+
+              <div class="d-flex justify-content-between" style="height: 28px;">
+                <!-- rating icon -->
+                <label
+                  class="badge badge-pill badge-danger d-inline-flex align-items-center justify-content-start mt-auto mb-auto"
+                  style="height: 28px;line-height: 28px;">
+                  <span class="font-weight-normal">
+                    {{this.rating}}
+                    <i class="fas fa-star fa-xs"></i>
+                  </span>
+                </label>
+
+                <span class="operation-badge d-flex justify-content-between" style="height: 28px;width:100px;">
+                  <!-- edit icon -->
+                  <label class="badge badge-info d-inline-flex align-items-center justify-content-start mt-auto mb-auto"
+                    style="height: 28px;line-height: 28px;">
+                    <a href="/restaurants/{{this._id}}/edit" style="text-decoration: none;">
+                      <span class="font-weight-normal" style="color:white;">Edit
+                        <i class="fas fa-edit"></i>
+                      </span>
+                    </a>
+                  </label>
+                  <!-- delete icon -->
                   <form action="/restaurants/{{this._id}}/delete" method="POST" class="d-inline">
-                    <button class="btn btn-dark btn-sm p-0" style="font-size: 12px;height: 100%" type="submit">Del
+                    <button class="btn btn-dark btn-sm" style="font-size: 12px;" type="submit">Del
                       <i class="fas fa-trash-alt"></i></button>
                   </form>
                 </span>
@@ -52,6 +68,8 @@
           </div>
         </div>
         {{/each}}
+
+        <!-- comming soon card -->
         <div class="d-print-inline-block col-4">
           <div class="card mb-3" id="empty-slogan">
             <div class="slogan">
@@ -66,6 +84,7 @@
             </div>
           </div>
         </div>
+
       </div>
     </div>
   </div>

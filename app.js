@@ -6,7 +6,6 @@ const multihelpers = hbshelpers()
 const app = express()
 const port = 3000
 const RestaurantModel = require('./models/restaurant')
-const creatorScanner = require('./creatorScanner')
 
 app.use(express.urlencoded({
   extended: true
@@ -32,6 +31,7 @@ app.set('view engine', 'hbs')
 // setting static files
 app.use(express.static('public'))
 
+// home page
 app.get('/', (req, res) => {
   RestaurantModel.find()
     .lean()
@@ -66,29 +66,31 @@ app.get('/search', (req, res) => {
     .catch(err => console.log(err))
 })
 
+// render new page
 app.get('/new', (req, res) => {
   return res.render('new')
 })
 
+// create new restaurant list
 app.post('/new/create', (req, res) => {
   const options = req.body
-  const results = creatorScanner(options)
+  const createSucceed = true
   RestaurantModel.create({
-    id: 8 + 1,
-    name: results[0].restName,
-    name_en: results[0].restNameEn,
-    category: results[0].restCategory,
-    image: results[0].restImage,
-    location: results[0].restLocation,
-    phone: results[0].restPhone,
-    google_map: results[0].restGoogleMap,
-    rating: results[0].restRating,
-    description: results[0].restDescription
+    name: options.restName,
+    name_en: options.restNameEn,
+    category: options.restCategory,
+    image: options.restImage,
+    location: options.restLocation,
+    phone: options.restPhone,
+    google_map: options.restGoogleMap,
+    rating: options.restRating,
+    description: options.restDescription
   })
-    .then(() => res.render('new', { options: results[0], createSucceed: results[1] }))
+    .then(() => res.render('new', { options, createSucceed }))
     .catch(err => console.log(err))
 })
 
+// render edit restaurant list
 app.get('/restaurants/:restaurantId/edit', (req, res) => {
   const restaurantId = req.params.restaurantId
   return RestaurantModel.findById(restaurantId)
@@ -97,6 +99,7 @@ app.get('/restaurants/:restaurantId/edit', (req, res) => {
     .catch(err => console.log(err))
 })
 
+// render edit succeed page
 app.get('/restaurants/:restaurantId/edit/succeed', (req, res) => {
   const restaurantId = req.params.restaurantId
   return RestaurantModel.findById(restaurantId)
@@ -105,27 +108,28 @@ app.get('/restaurants/:restaurantId/edit/succeed', (req, res) => {
     .catch(err => console.log(err))
 })
 
+// edit restaurant list
 app.post('/restaurants/:restaurantId/edit', (req, res) => {
   const restaurantId = req.params.restaurantId
   const options = req.body
-  const results = creatorScanner(options)
   return RestaurantModel.findById(restaurantId)
     .then(restaurant => {
-      restaurant.name = results[0].restName,
-        restaurant.name_en = results[0].restNameEn,
-        restaurant.category = results[0].restCategory,
-        restaurant.image = results[0].restImage,
-        restaurant.location = results[0].restLocation,
-        restaurant.phone = results[0].restPhone,
-        restaurant.google_map = results[0].restGoogleMap,
-        restaurant.rating = results[0].restRating,
-        restaurant.description = results[0].restDescription
+      restaurant.name = options.restName,
+        restaurant.name_en = options.restNameEn,
+        restaurant.category = options.restCategory,
+        restaurant.image = options.restImage,
+        restaurant.location = options.restLocation,
+        restaurant.phone = options.restPhone,
+        restaurant.google_map = options.restGoogleMap,
+        restaurant.rating = options.restRating,
+        restaurant.description = options.restDescription
       return restaurant.save()
     })
     .then(() => res.redirect(`/restaurants/${restaurantId}/edit/succeed`))
     .catch(err => console.log(err))
 })
 
+// delete restaurant list
 app.post('/restaurants/:restaurantId/delete', (req, res) => {
   const restaurantId = req.params.restaurantId
   return RestaurantModel.findById(restaurantId)
@@ -134,6 +138,7 @@ app.post('/restaurants/:restaurantId/delete', (req, res) => {
     .catch(error => console.log(error))
 })
 
+// listening
 app.listen(port, () => {
   console.log(`App is running on http://localhost:${port}.`)
 })
