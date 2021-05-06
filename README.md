@@ -25,7 +25,7 @@
 - 開發框架: [Express](https://expressjs.com/en/starter/installing.html) - v4.17.1
 - 開發套件: [Express-handlebars](https://www.npmjs.com/package/express-handlebars) - v5.3.0
 - 開發套件: [Nodemon](https://www.npmjs.com/package/nodemon) - v2.0.7
-- 開發套件: [handlebars-helpers]() - v0.10.0
+- 開發套件: [handlebars-helpers](https://www.npmjs.com/package/handlebars-helpers) - v0.10.0
 - 開發資料庫: [MongoDB](https://www.mongodb.com/) - v4.2.13
 - 開發資料庫套件: [Mongoose](https://www.npmjs.com/package/mongoose) - (MongoDB 的 ODM) v5.12.6
 
