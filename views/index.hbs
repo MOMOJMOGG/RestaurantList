@@ -15,6 +15,20 @@
     </div>
   </div>
 </div>
+<div class="container sort-option mt-2 d-flex justify-content-end">
+  <form action="/" method="POST" class="form-group col-2">
+    <select name="sort" class="form-control btn-outline-secondary" id='sortType' onchange="this.form.submit()"
+      style="cursor: pointer;">
+      <option class="placeholder" disabled selected value="">Sort</option>
+      <option value="asc" {{#is option 'asc' }} selected {{/is}}>舊 - 新</option>
+      <option value="desc" {{#is option 'desc' }} selected {{/is}}>新 - 舊</option>
+      <option value="n-asc" {{#is option 'n-asc' }} selected {{/is}}>A - Z</option>
+      <option value="n-desc" {{#is option 'n-desc' }} selected {{/is}}>Z - A</option>
+      <option value="category-asc" {{#is option 'category-asc' }} selected {{/is}}>類別</option>
+      <option value="region-asc" {{#is option 'region-asc' }} selected {{/is}}>地區</option>
+    </select>
+  </form>
+</div>
 
 <!-- restaurant list -->
 <div class="container mt-5">
