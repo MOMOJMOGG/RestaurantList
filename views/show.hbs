@@ -73,8 +73,9 @@
       </div>
       <div class="modal-footer bg-dark" style="border-top: 1px dashed gray;">
         <button type="button" class="btn btn-primary" data-dismiss="modal">Give Up</button>
-        <form id="save-btn-link" action="/restaurants/{{restaurant._id}}/delete" method="POST" class="d-inline"><button
-            type="submit" class="btn btn-danger">Delete</button></form>
+        <form id="save-btn-link" action="/restaurants/{{restaurant._id}}?_method=DELETE" method="POST" class="d-inline">
+          <button type="submit" class="btn btn-danger">Delete</button>
+        </form>
       </div>
     </div>
   </div>

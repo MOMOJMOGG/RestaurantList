@@ -1,15 +1,26 @@
 const express = require('express')
 const exphbs = require('express-handlebars')
 const hbshelpers = require("handlebars-helpers")
+const RestaurantModel = require('./models/restaurant')
+const methodOverride = require('method-override')
 const multihelpers = hbshelpers()
 
 const app = express()
 const port = 3000
-const RestaurantModel = require('./models/restaurant')
 
 app.use(express.urlencoded({
   extended: true
 }));
+
+// 設定每一筆請求都會透過 methodOverride 進行前置處理
+app.use(methodOverride('_method'))
+
+// setting static files
+app.use(express.static('public'))
+
+// set template engine
+app.engine('hbs', exphbs({ defaultLayout: 'main', extname: '.hbs', helpers: multihelpers }))
+app.set('view engine', 'hbs')
 
 const mongoose = require('mongoose')
 mongoose.connect('mongodb://localhost/restaurant-list', { useNewUrlParser: true, useUnifiedTopology: true })
@@ -24,12 +35,7 @@ db.once('open', () => {
   console.log('mongodb connected!')
 })
 
-// set template engine
-app.engine('hbs', exphbs({ defaultLayout: 'main', extname: '.hbs', helpers: multihelpers }))
-app.set('view engine', 'hbs')
 
-// setting static files
-app.use(express.static('public'))
 
 // home page
 app.get('/', (req, res) => {
@@ -109,7 +115,7 @@ app.get('/restaurants/:restaurantId/edit/succeed', (req, res) => {
 })
 
 // edit restaurant list
-app.post('/restaurants/:restaurantId/edit', (req, res) => {
+app.put('/restaurants/:restaurantId', (req, res) => {
   const restaurantId = req.params.restaurantId
   const options = req.body
   return RestaurantModel.findById(restaurantId)
@@ -130,7 +136,7 @@ app.post('/restaurants/:restaurantId/edit', (req, res) => {
 })
 
 // delete restaurant list
-app.post('/restaurants/:restaurantId/delete', (req, res) => {
+app.delete('/restaurants/:restaurantId', (req, res) => {
   const restaurantId = req.params.restaurantId
   return RestaurantModel.findById(restaurantId)
     .then(restaurant => restaurant.remove())

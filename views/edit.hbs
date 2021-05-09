@@ -6,7 +6,7 @@
           <h5 class="card-title">更新餐廳 Edit Restaurant Information <i class="fas fa-edit"></i></h5>
           <hr>
           <!-- Edit URL -->
-          <form method="POST" action="/restaurants/{{restaurant._id}}/edit">
+          <form method="POST" action="/restaurants/{{restaurant._id}}?_method=PUT">
             <div class="form-group form-row">
               <label for="rest-name" class="col-md-4 col-form-label">
                 餐廳名稱 *
