@@ -1,4 +1,4 @@
-# 餐廳清單 RestaurantList version 2.0
+# 餐廳清單 RestaurantList version 3.0
 
 一個基於 Node.js 的 Express 框架練習專案
 
@@ -6,6 +6,7 @@
 [<img align="center" src="https://github.com/MOMOJMOGG/RestaurantList/blob/master/public/images/HomePage.PNG" height="500" width="500" />]()
 [<img align="center" src="https://github.com/MOMOJMOGG/RestaurantList/blob/master/public/images/CreatePage.PNG" height="500" width="500" />]()
 [<img align="center" src="https://github.com/MOMOJMOGG/RestaurantList/blob/master/public/images/DeleteWarning.PNG" height="500" width="500" />]()
+[<img align="center" src="https://github.com/MOMOJMOGG/RestaurantList/blob/master/public/images/Sort.png" height="500" width="500" />]()
 
 ## 功能描述 - Features
 - 瀏覽餐廳列表與基本資訊，包含: 餐廳名稱、圖片、類別、評分
@@ -17,6 +18,7 @@
   - 點選 **`Edit`** 可以編輯一家餐廳
   - 點選 **`Del`** 可以刪除一家餐廳
 - 依照餐廳名稱進行搜尋
+- 對餐廳顯示進行排序，包含: 新-舊、舊-新、名稱 A-Z、名稱 Z-A、類別、地區 -- v3.0 更新功能
 
 
 ## 環境建置需求與套件版本 - Prerequisies & Package Version
@@ -26,6 +28,7 @@
 - 開發套件: [Express-handlebars](https://www.npmjs.com/package/express-handlebars) - v5.3.0
 - 開發套件: [Nodemon](https://www.npmjs.com/package/nodemon) - v2.0.7
 - 開發套件: [handlebars-helpers](https://www.npmjs.com/package/handlebars-helpers) - v0.10.0
+- 開發套件: [method-override](https://www.npmjs.com/package/method-override) - v3.0.0
 - 開發資料庫: [MongoDB](https://www.mongodb.com/) - v4.2.13
 - 開發資料庫套件: [Mongoose](https://www.npmjs.com/package/mongoose) - (MongoDB 的 ODM) v5.12.6
 
