@@ -5,6 +5,7 @@ const methodOverride = require('method-override')
 const session = require('express-session')
 const routes = require('./routes')
 const usePassport = require('./config/passport') // 載入設定檔，要寫在 express-session 以後
+const user = require('./models/user')
 require('./config/mongoose')
 
 if (process.env.NODE_ENV !== 'production') {
@@ -36,6 +37,12 @@ app.use(session({
 }))
 
 usePassport(app)
+
+app.use((req, res, next) => {
+  res.locals.isAuthenticated = req.isAuthenticated()
+  res.locals.user = req.user
+  next()
+})
 
 // 將 request 導入路由器
 app.use(routes)

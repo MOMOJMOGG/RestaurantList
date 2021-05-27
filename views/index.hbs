@@ -15,8 +15,9 @@
     </div>
   </div>
 </div>
-<div class="container sort-option mt-2 d-flex justify-content-end">
-  <form action="/" method="POST" class="form-group col-2">
+<div class="container sort-option mt-2 d-flex justify-content-between">
+  <a href="/restaurants/new" class="btn btn-outline-primary my-auto" style="height: 60%;">Create</a>
+  <form action="/" method="POST" class="form-group col-2 my-auto">
     <select name="sort" class="form-control btn-outline-secondary" id='sortType' onchange="this.form.submit()"
       style="cursor: pointer;">
       <option class="placeholder" disabled selected value="">Sort</option>
