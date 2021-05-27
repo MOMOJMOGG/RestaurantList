@@ -7,11 +7,11 @@ const routes = require('./routes')
 const usePassport = require('./config/passport') // 載入設定檔，要寫在 express-session 以後
 const flash = require('connect-flash')
 
-require('./config/mongoose')
-
 if (process.env.NODE_ENV !== 'production') {
   require('dotenv').config()
 }
+
+require('./config/mongoose')
 
 const multihelpers = hbshelpers()
 const app = express()
