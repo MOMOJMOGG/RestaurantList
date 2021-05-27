@@ -12,7 +12,7 @@
                 餐廳名稱 *
               </label>
               <div class="col-md-8">
-                <input type="text" placeholder="Pleace Enter Restaurant Name" name="restName" class="form-control"
+                <input type="text" placeholder="Pleace Enter Restaurant Name" name="name" class="form-control"
                   id="rest-name" value="{{restaurant.name}}" required>
                 <div class="valid-feedback">Good Answer</div>
                 <div class="invalid-feedback">Example invalid feedback text</div>
@@ -23,7 +23,7 @@
                 餐廳英文名稱 *
               </label>
               <div class="col-md-8">
-                <input type="text" placeholder="Pleace Enter Restaurant English Name" name="restNameEn"
+                <input type="text" placeholder="Pleace Enter Restaurant English Name" name="name_en"
                   class="form-control" id="rest-name-en" value="{{restaurant.name_en}}" required>
               </div>
             </div>
@@ -59,8 +59,8 @@
                 類別 *
               </label>
               <div class="col-md-8">
-                <input type="text" placeholder="Pleace Enter Restaurant Category" name="restCategory"
-                  class="form-control" id="rest-category" value="{{restaurant.category}}" required>
+                <input type="text" placeholder="Pleace Enter Restaurant Category" name="category" class="form-control"
+                  id="rest-category" value="{{restaurant.category}}" required>
               </div>
             </div>
 
@@ -70,7 +70,7 @@
                 影像連結 *
               </label>
               <div class="col-md-8">
-                <input type="text" placeholder="Pleace Enter Restaurant Image Url" name="restImage" class="form-control"
+                <input type="text" placeholder="Pleace Enter Restaurant Image Url" name="image" class="form-control"
                   id="rest-image" value="{{restaurant.image}}" required>
               </div>
             </div>
@@ -80,8 +80,8 @@
                 地址 *
               </label>
               <div class="col-md-8">
-                <input type="text" placeholder="Pleace Enter Restaurant Address" name="restLocation"
-                  class="form-control" id="rest-location" value="{{restaurant.location}}" required>
+                <input type="text" placeholder="Pleace Enter Restaurant Address" name="location" class="form-control"
+                  id="rest-location" value="{{restaurant.location}}" required>
               </div>
             </div>
 
@@ -90,8 +90,8 @@
                 電話 *
               </label>
               <div class="col-md-8">
-                <input type="text" placeholder="Pleace Enter Restaurant Phone Number" name="restPhone"
-                  class="form-control" id="rest-phone" value="{{restaurant.phone}}" required>
+                <input type="text" placeholder="Pleace Enter Restaurant Phone Number" name="phone" class="form-control"
+                  id="rest-phone" value="{{restaurant.phone}}" required>
               </div>
             </div>
 
@@ -100,7 +100,7 @@
                 地圖連結 *
               </label>
               <div class="col-md-8">
-                <input type="text" placeholder="Pleace Enter Restaurant Google Map Url" name="restGoogleMap"
+                <input type="text" placeholder="Pleace Enter Restaurant Google Map Url" name="google_map"
                   class="form-control" id="rest-google-map" value="{{restaurant.google_map}}" required>
               </div>
             </div>
@@ -110,7 +110,7 @@
                 評分 *
               </label>
               <div class="col-md-8">
-                <input type="number" placeholder="Pleace Enter Restaurant Rating (0.0 ~ 5.0)" name="restRating"
+                <input type="number" placeholder="Pleace Enter Restaurant Rating (0.0 ~ 5.0)" name="rating"
                   class="form-control" id="rest-rating" min="0" max="5" step="0.1" value="{{restaurant.rating}}"
                   required>
               </div>
@@ -122,7 +122,7 @@
               </label>
               <div class="col-md-8">
                 <textarea class="form-control" placeholder="Pleace Enter Restaurant Briefly Description"
-                  name="restDescription" id="rest-description" rows="3" required>{{restaurant.description}}</textarea>
+                  name="description" id="rest-description" rows="3" required>{{restaurant.description}}</textarea>
                 <!-- <input type="text" placeholder="Pleace Enter Restaurant Briefly Description"
                     name="rest-description" class="form-control" id="rest-description"
                     value="{{options.restDescription}}"> -->

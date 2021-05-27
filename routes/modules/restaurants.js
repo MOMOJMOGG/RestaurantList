@@ -6,7 +6,8 @@ const RestaurantModel = require('../../models/restaurant')
 
 // query searching
 router.get('/search', (req, res) => {
-  RestaurantModel.find()
+  const userId = req.user._id
+  RestaurantModel.find(userId)
     .lean()
     .then(restaurantList => {
       const restaurants = restaurantList.filter((rest) => {
@@ -28,28 +29,33 @@ router.get('/new', (req, res) => {
 })
 
 // create new restaurant list
-router.post('/new/create', (req, res) => {
-  const options = req.body
-  const createSucceed = true
+router.post('/new', (req, res) => {
+  const userId = req.user._id
+  console.log(req.body)
+  const { name, name_en, category, image, location, phone, google_map, rating, description } = req.body
+  // const createSucceed = true
   RestaurantModel.create({
-    name: options.restName,
-    name_en: options.restNameEn,
-    category: options.restCategory,
-    image: options.restImage,
-    location: options.restLocation,
-    phone: options.restPhone,
-    google_map: options.restGoogleMap,
-    rating: options.restRating,
-    description: options.restDescription
+    name,
+    name_en,
+    category,
+    image,
+    location,
+    phone,
+    google_map,
+    rating,
+    description,
+    userId
   })
-    .then(() => res.render('new', { options, createSucceed }))
+    // .then(() => res.render('new', { options, createSucceed }))
+    .then(() => res.redirect('/'))
     .catch(err => console.log(err))
 })
 
 // dynamic router using params
 router.get('/:restaurantId', (req, res) => {
+  const userId = req.user._id
   const { restaurantId } = req.params
-  return RestaurantModel.findById(restaurantId)
+  return RestaurantModel.findOne({ _id: restaurantId, userId })
     .lean()
     .then((restaurant) => res.render('show', { restaurant }))
     .catch(err => console.log(err))
@@ -57,47 +63,50 @@ router.get('/:restaurantId', (req, res) => {
 
 // render edit restaurant list
 router.get('/:restaurantId/edit', (req, res) => {
+  const userId = req.user._id
   const { restaurantId } = req.params
-  return RestaurantModel.findById(restaurantId)
+  return RestaurantModel.findOne({ _id: restaurantId, userId })
     .lean()
     .then((restaurant) => res.render('edit', { restaurant }))
     .catch(err => console.log(err))
 })
 
 // render edit succeed page
-router.get('/:restaurantId/edit/succeed', (req, res) => {
-  const { restaurantId } = req.params
-  return RestaurantModel.findById(restaurantId)
-    .lean()
-    .then((restaurant) => res.render('edit', { restaurant, createSucceed: true }))
-    .catch(err => console.log(err))
-})
+// router.get('/:restaurantId/edit/succeed', (req, res) => {
+//   const { restaurantId } = req.params
+//   return RestaurantModel.findById(restaurantId)
+//     .lean()
+//     .then((restaurant) => res.render('edit', { restaurant, createSucceed: true }))
+//     .catch(err => console.log(err))
+// })
 
 // edit restaurant list
 router.put('/:restaurantId', (req, res) => {
+  const userId = req.user._id
   const { restaurantId } = req.params
-  const options = req.body
-  return RestaurantModel.findById(restaurantId)
+  const { name, name_en, category, image, location, phone, google_map, rating, description } = req.body
+  return RestaurantModel.findOne({ _id: restaurantId, userId })
     .then(restaurant => {
-      restaurant.name = options.restName
-      restaurant.name_en = options.restNameEn
-      restaurant.category = options.restCategory
-      restaurant.image = options.restImage
-      restaurant.location = options.restLocation
-      restaurant.phone = options.restPhone
-      restaurant.google_map = options.restGoogleMap
-      restaurant.rating = options.restRating
-      restaurant.description = options.restDescription
+      restaurant.name = name
+      restaurant.name_en = name_en
+      restaurant.category = category
+      restaurant.image = image
+      restaurant.location = location
+      restaurant.phone = phone
+      restaurant.google_map = google_map
+      restaurant.rating = rating
+      restaurant.description = description
       return restaurant.save()
     })
-    .then(() => res.redirect(`/${restaurantId}/edit/succeed`))
+    .then(() => res.redirect(`/restaurants/${restaurantId}/edit`))
     .catch(err => console.log(err))
 })
 
 // delete restaurant list
 router.delete('/:restaurantId', (req, res) => {
+  const userId = req.user._id
   const { restaurantId } = req.params
-  return RestaurantModel.findById(restaurantId)
+  return RestaurantModel.findOne({ _id: restaurantId, userId })
     .then(restaurant => restaurant.remove())
     .then(() => res.redirect('/'))
     .catch(error => console.log(error))

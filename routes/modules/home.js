@@ -3,10 +3,12 @@ const express = require('express')
 const router = express.Router()
 // 引用 Todo model
 const RestaurantModel = require('../../models/restaurant')
+const User = require('../../models/user')
 const sortRules = require('../../public/javascripts/sortRules')
 
 router.get('/', (req, res) => {
-  RestaurantModel.find()
+  const userId = req.user._id
+  RestaurantModel.find({ userId })
     .lean()
     .sort({ _id: 'asc' }) // asc, desc
     .then(restaurantList => res.render('index', { restaurants: restaurantList }))
@@ -14,8 +16,9 @@ router.get('/', (req, res) => {
 })
 
 router.post('/', (req, res) => {
+  const userId = req.user._id
   const sortDict = sortRules(req.body.sort)
-  RestaurantModel.find()
+  RestaurantModel.find({ userId })
     .lean()
     .sort(sortDict)
     .then(restaurantList => res.render('index', { restaurants: restaurantList, option: req.body.sort }))
