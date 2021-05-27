@@ -1,5 +1,6 @@
 // 引用 Express 與 Express 路由器
 const express = require('express')
+const passport = require('passport')
 const router = express.Router()
 
 const User = require('../../models/user')
@@ -8,9 +9,10 @@ router.get('/login', (req, res) => {
   res.render('login')
 })
 
-router.post('/login', (req, res) => {
-
-})
+router.post('/login', passport.authenticate('local', {
+  successRedirect: '/',
+  failureRedirect: '/users/login'
+}))
 
 router.get('/register', (req, res) => {
   res.render('register')
@@ -61,7 +63,8 @@ router.post('/register', (req, res) => {
 })
 
 router.get('/logout', (req, res) => {
-
+  req.logout()
+  res.redirect('/users/login')
 })
 
 module.exports = router

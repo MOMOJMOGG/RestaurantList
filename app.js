@@ -3,8 +3,9 @@ const exphbs = require('express-handlebars')
 const hbshelpers = require("handlebars-helpers")
 const methodOverride = require('method-override')
 const session = require('express-session')
-const routes = require('./routes') // 引用路由器
-require('./config/mongoose') // 引用資料庫
+const routes = require('./routes')
+const usePassport = require('./config/passport') // 載入設定檔，要寫在 express-session 以後
+require('./config/mongoose')
 
 if (process.env.NODE_ENV !== 'production') {
   require('dotenv').config()
@@ -33,6 +34,8 @@ app.use(session({
   resave: false,
   saveUninitialized: true
 }))
+
+usePassport(app)
 
 // 將 request 導入路由器
 app.use(routes)
