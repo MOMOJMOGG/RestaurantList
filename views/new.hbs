@@ -1,6 +1,10 @@
 <div class="container py-5">
   <div class="row">
     <div class="col-12 col-lg-10 col-xl-8 mx-auto">
+      {{> message}}
+    </div>
+
+    <div class="col-12 col-lg-10 col-xl-8 mx-auto">
       <div class="card">
         <div class="card-body">
           <h5 class="card-title">新增餐廳 Add A New Restaurant <i class="fas fa-utensils"></i></h5>
@@ -9,7 +13,7 @@
 
             <div class="form-group form-row">
               <label for="rest-name" class="col-md-4 col-form-label">
-                餐廳名稱 *
+                餐廳名稱 <code>*</code>
               </label>
               <div class="col-md-8">
                 <input type="text" placeholder="Pleace Enter Restaurant Name" name="name" class="form-control"
@@ -20,7 +24,7 @@
             </div>
             <div class="form-group form-row">
               <label for="rest-name-en" class="col-md-4 col-form-label">
-                餐廳英文名稱 *
+                餐廳英文名稱 <code>*</code>
               </label>
               <div class="col-md-8">
                 <input type="text" placeholder="Pleace Enter Restaurant English Name" name="name_en"
@@ -28,36 +32,9 @@
               </div>
             </div>
 
-            <!-- <div class="form-group form-row">
-              <label for="rest-category" class="col-md-4 col-form-label">
-                類別 *
-              </label>
-              <div class="col-md-8">
-                <select class="form-control" id="rest-category" name="restCategory" required>
-                  <option class="placeholder" selected disabled value="">Pleace Enter Restaurant Category</option>
-                  <option value="1" {{#is options.restCategory 1}} selected {{/is}}>中式料理</option>
-                  <option value="2" {{#is options.restCategory 2}} selected {{/is}}>日式料理</option>
-                  <option value="3" {{#is options.restCategory 3}} selected {{/is}}>義式料理</option>
-                  <option value="4" {{#is options.restCategory 4}} selected {{/is}}>美式料理</option>
-                  <option value="5" {{#is options.restCategory 5}} selected {{/is}}>法式料理</option>
-                  <option value="6" {{#is options.restCategory 6}} selected {{/is}}>韓式料理</option>
-                  <option value="7" {{#is options.restCategory 7}} selected {{/is}}>墨西哥料理</option>
-                  <option value="8" {{#is options.restCategory 8}} selected {{/is}}>印度料理</option>
-                  <option value="9" {{#is options.restCategory 9}} selected {{/is}}>酒吧</option>
-                  <option value="10" {{#is options.restCategory 10}} selected {{/is}}>咖啡廳</option>
-                  <option value="11" {{#is options.restCategory 11}} selected {{/is}}>下午茶店</option>
-                  <option value="12" {{#is options.restCategory 12}} selected {{/is}}>其他</option>
-
-                </select>
-                <div class="other-category mt-2 invisible">
-                  <input type="text" placeholder="Pleace Enter Restaurant Category" name="restNewCategory"
-                    class="form-control" id="rest-new-category" value="">
-                </div>
-              </div>
-            </div> -->
             <div class="form-group form-row">
               <label for="rest-category" class="col-md-4 col-form-label">
-                類別 *
+                類別 <code>*</code>
               </label>
               <div class="col-md-8">
                 <input type="text" placeholder="Pleace Enter Restaurant Category" name="category" class="form-control"
@@ -67,7 +44,7 @@
 
             <div class="form-group form-row">
               <label for="rest-image" class="col-md-4 col-form-label">
-                影像連結 *
+                影像連結 <code>*</code>
               </label>
               <div class="col-md-8">
                 <input type="text" placeholder="Pleace Enter Restaurant Image Url" name="image" class="form-control"
@@ -77,7 +54,7 @@
 
             <div class="form-group form-row">
               <label for="rest-location" class="col-md-4 col-form-label">
-                地址 *
+                地址 <code>*</code>
               </label>
               <div class="col-md-8">
                 <input type="text" placeholder="Pleace Enter Restaurant Address" name="location" class="form-control"
@@ -87,7 +64,7 @@
 
             <div class="form-group form-row">
               <label for="rest-phone" class="col-md-4 col-form-label">
-                電話 *
+                電話 <code>*</code>
               </label>
               <div class="col-md-8">
                 <input type="text" placeholder="Pleace Enter Restaurant Phone Number" name="phone" class="form-control"
@@ -97,7 +74,7 @@
 
             <div class="form-group form-row">
               <label for="rest-google-map" class="col-md-4 col-form-label">
-                地圖連結 *
+                地圖連結 <code>*</code>
               </label>
               <div class="col-md-8">
                 <input type="text" placeholder="Pleace Enter Restaurant Google Map Url" name="google_map"
@@ -107,7 +84,7 @@
 
             <div class="form-group form-row">
               <label for="rest-rating" class="col-md-4 col-form-label">
-                評分 *
+                評分 <code>*</code>
               </label>
               <div class="col-md-8">
                 <input type="number" placeholder="Pleace Enter Restaurant Rating (0.0 ~ 5.0)" name="rating"
@@ -117,7 +94,7 @@
 
             <div class="form-group form-row">
               <label for="rest-description" class="col-md-4 col-form-label">
-                餐廳簡述 *
+                餐廳簡述 <code>*</code>
               </label>
               <div class="col-md-8">
                 <textarea class="form-control" placeholder="Pleace Enter Restaurant Briefly Description"

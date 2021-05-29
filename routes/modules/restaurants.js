@@ -3,6 +3,7 @@ const express = require('express')
 const router = express.Router()
 // 引用 Todo model
 const RestaurantModel = require('../../models/restaurant')
+const regex = require('../../public/javascripts/regex')
 
 // query searching
 router.get('/search', (req, res) => {
@@ -31,10 +32,33 @@ router.get('/new', (req, res) => {
 // create new restaurant list
 router.post('/new', (req, res) => {
   const userId = req.user._id
-  console.log(req.body)
   const { name, name_en, category, image, location, phone, google_map, rating, description } = req.body
+  const errors = []
+  if (!name || !name_en || !category || !image || !location || !phone || !google_map || !rating || !description) {
+    errors.push({ message: '有必填欄位為空白。' })
+  }
+  if (!regex.matchEnglishName(name_en)) {
+    errors.push({ message: '餐廳英文名稱含有非英文字元!' })
+  }
+  if (!regex.matchPhone(phone)) {
+    errors.push({ message: '電話含有非數字字元!' })
+  }
+  if (errors.length) {
+    return res.render('new', {
+      errors,
+      name,
+      name_en,
+      category,
+      image,
+      location,
+      phone,
+      google_map,
+      rating,
+      description
+    })
+  }
   // const createSucceed = true
-  RestaurantModel.create({
+  return RestaurantModel.create({
     name,
     name_en,
     category,
@@ -46,8 +70,10 @@ router.post('/new', (req, res) => {
     description,
     userId
   })
-    // .then(() => res.render('new', { options, createSucceed }))
-    .then(() => res.redirect('/'))
+    .then(() => {
+      req.flash('success_msg', '餐廳新增成功')
+      res.redirect('/')
+    })
     .catch(err => console.log(err))
 })
 
@@ -71,20 +97,26 @@ router.get('/:restaurantId/edit', (req, res) => {
     .catch(err => console.log(err))
 })
 
-// render edit succeed page
-// router.get('/:restaurantId/edit/succeed', (req, res) => {
-//   const { restaurantId } = req.params
-//   return RestaurantModel.findById(restaurantId)
-//     .lean()
-//     .then((restaurant) => res.render('edit', { restaurant, createSucceed: true }))
-//     .catch(err => console.log(err))
-// })
-
 // edit restaurant list
 router.put('/:restaurantId', (req, res) => {
   const userId = req.user._id
   const { restaurantId } = req.params
   const { name, name_en, category, image, location, phone, google_map, rating, description } = req.body
+  const errors = []
+  if (!name || !name_en || !category || !image || !location || !phone || !google_map || !rating || !description) {
+    errors.push({ message: '有必填欄位為空白。' })
+  }
+  if (!regex.matchEnglishName(name_en)) {
+    errors.push({ message: '餐廳英文名稱含有非英文字元!' })
+  }
+  if (!regex.matchPhone(phone)) {
+    errors.push({ message: '電話含有非數字字元!' })
+  }
+  if (errors.length) {
+    req.flash('errors', errors)
+    return res.redirect(`/restaurants/${restaurantId}/edit`)
+  }
+
   return RestaurantModel.findOne({ _id: restaurantId, userId })
     .then(restaurant => {
       restaurant.name = name
@@ -98,7 +130,10 @@ router.put('/:restaurantId', (req, res) => {
       restaurant.description = description
       return restaurant.save()
     })
-    .then(() => res.redirect(`/restaurants/${restaurantId}/edit`))
+    .then(() => {
+      req.flash('success_msg', '餐廳更新成功, 可繼續更新或回到首頁!')
+      res.redirect(`/restaurants/${restaurantId}/edit`)
+    })
     .catch(err => console.log(err))
 })
 
@@ -108,7 +143,10 @@ router.delete('/:restaurantId', (req, res) => {
   const { restaurantId } = req.params
   return RestaurantModel.findOne({ _id: restaurantId, userId })
     .then(restaurant => restaurant.remove())
-    .then(() => res.redirect('/'))
+    .then(() => {
+      req.flash('success_msg', '餐廳刪除成功')
+      res.redirect('/')
+    })
     .catch(error => console.log(error))
 })
 

@@ -1,6 +1,9 @@
 <div class="container py-5">
   <div class="row">
     <div class="col-12 col-lg-10 col-xl-8 mx-auto">
+      {{> message}}
+    </div>
+    <div class="col-12 col-lg-10 col-xl-8 mx-auto">
       <div class="card">
         <div class="card-body">
           <h5 class="card-title">更新餐廳 Edit Restaurant Information <i class="fas fa-edit"></i></h5>
@@ -28,32 +31,6 @@
               </div>
             </div>
 
-            <!-- <div class="form-group form-row">
-              <label for="rest-category" class="col-md-4 col-form-label">
-                類別 *
-              </label>
-              <div class="col-md-8">
-                <select class="form-control" id="rest-category" name="restCategory" required>
-                  <option class="placeholder" selected disabled value="">Pleace Enter Restaurant Category</option>
-                  <option value="1" {{#is restaurant.category 1}} selected {{/is}}>中式料理</option>
-                  <option value="2" {{#is restaurant.category 2}} selected {{/is}}>日式料理</option>
-                  <option value="3" {{#is restaurant.category 3}} selected {{/is}}>義式料理</option>
-                  <option value="4" {{#is restaurant.category 4}} selected {{/is}}>美式料理</option>
-                  <option value="5" {{#is restaurant.category 5}} selected {{/is}}>法式料理</option>
-                  <option value="6" {{#is restaurant.category 6}} selected {{/is}}>韓式料理</option>
-                  <option value="7" {{#is restaurant.category 7}} selected {{/is}}>墨西哥料理</option>
-                  <option value="8" {{#is restaurant.category 8}} selected {{/is}}>印度料理</option>
-                  <option value="9" {{#is restaurant.category 9}} selected {{/is}}>酒吧</option>
-                  <option value="10" {{#is restaurant.category 10}} selected {{/is}}>咖啡廳</option>
-                  <option value="11" {{#is restaurant.category 11}} selected {{/is}}>下午茶店</option>
-                  <option value="12" {{#is restaurant.category 12}} selected {{/is}}>其他</option>
-                </select>
-                <div class="other-category mt-2 invisible">
-                  <input type="text" placeholder="Pleace Enter Restaurant Category" name="restNewCategory"
-                    class="form-control" id="rest-new-category" value="">
-                </div> 
-              </div>
-            </div>-->
             <div class="form-group form-row">
               <label for="rest-category" class="col-md-4 col-form-label">
                 類別 *

@@ -12,7 +12,8 @@ router.get('/login', (req, res) => {
 
 router.post('/login', passport.authenticate('local', {
   successRedirect: '/',
-  failureRedirect: '/users/login'
+  failureRedirect: '/users/login',
+  failureFlash: true
 }))
 
 router.get('/register', (req, res) => {
@@ -43,14 +44,16 @@ router.post('/register', (req, res) => {
     // 如果已經註冊：退回原本畫面
     if (user) {
       errors.push({ message: '這個 Email 已經註冊過了。' })
-      res.render('register', {
+      return res.render('register', {
         errors,
         name,
         email,
         password,
         confirmPassword
       })
-    } return bcrypt
+    }
+
+    return bcrypt
       .genSalt(10) // 產生「鹽」，並設定複雜度係數為 10
       .then(salt => bcrypt.hash(password, salt)) // 為使用者密碼「加鹽」，產生雜湊值
       .then(hash => User.create({
