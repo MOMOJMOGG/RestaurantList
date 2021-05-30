@@ -8,7 +8,7 @@ module.exports = regularExpressResult = {
     }
   },
   matchPhone: (str) => {
-    const result = str.match(/[0-9-]+/i)
+    const result = str.match(/[0-9\s-]+/i)
     if (!result || result[0] !== str) {
       return false
     } else {

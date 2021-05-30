@@ -5,24 +5,6 @@ const router = express.Router()
 const RestaurantModel = require('../../models/restaurant')
 const regex = require('../../public/javascripts/regex')
 
-// query searching
-router.get('/search', (req, res) => {
-  const userId = req.user._id
-  RestaurantModel.find(userId)
-    .lean()
-    .then(restaurantList => {
-      const restaurants = restaurantList.filter((rest) => {
-        return rest.name_en.toLowerCase().includes(req.query.keyword.toLowerCase()) || rest.name.toLowerCase().includes(req.query.keyword.toLowerCase())
-      })
-
-      if (restaurants.length === 0) {
-        res.render('searchingError', { keyword: req.query.keyword })
-      } else {
-        res.render('index', { restaurants: restaurants, keyword: req.query.keyword })
-      }
-    })
-    .catch(err => console.log(err))
-})
 
 // render new page
 router.get('/new', (req, res) => {

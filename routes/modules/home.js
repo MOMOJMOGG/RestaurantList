@@ -8,11 +8,31 @@ const sortRules = require('../../public/javascripts/sortRules')
 
 router.get('/', (req, res) => {
   const userId = req.user._id
-  RestaurantModel.find({ userId })
-    .lean()
-    .sort({ _id: 'asc' }) // asc, desc
-    .then(restaurantList => res.render('index', { restaurants: restaurantList }))
-    .catch(err => console.log(err))
+  const { keyword } = req.query || ''
+  if (!keyword) {
+    return RestaurantModel.find({ userId })
+      .lean()
+      .sort({ _id: 'asc' }) // asc, desc
+      .then(restaurantList => res.render('index', { restaurants: restaurantList }))
+      .catch(err => console.log(err))
+  } else {
+    return RestaurantModel.find({ userId })
+      .lean()
+      .sort({ _id: 'asc' }) // asc, desc
+      .then(restaurantList => {
+        const searchResults = restaurantList.filter((rest) => {
+          return rest.name_en.toLowerCase().includes(keyword.toLowerCase()) || rest.name.toLowerCase().includes(keyword.toLowerCase())
+        })
+
+        if (searchResults.length === 0) {
+          const errors = [{ message: 'Searching Error: Not found any restaurant!' }]
+          res.render('index', { restaurants: [], keyword, errors })
+        } else {
+          res.render('index', { restaurants: searchResults, keyword })
+        }
+      })
+      .catch(err => console.log(err))
+  }
 })
 
 router.post('/', (req, res) => {

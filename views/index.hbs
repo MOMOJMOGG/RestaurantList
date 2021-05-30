@@ -2,7 +2,7 @@
 <div class="container search-bar">
   <div class="search-bar-outer">
     <div class="search-bar-inner">
-      <form action="/restaurants/search">
+      <form action="/">
         <h4 class="mb-2">尋找餐廳：</h4>
         <div class="input-group">
           <input type="text" name="keyword" class="form-control" placeholder="輸入餐廳、分類" aria-label="Restaurant Name..."
@@ -21,12 +21,12 @@
     <select name="sort" class="form-control btn-outline-secondary" id='sortType' onchange="this.form.submit()"
       style="cursor: pointer;">
       <option class="placeholder" disabled selected value="">Sort</option>
-      <option value="asc" {{#is option 'asc' }} selected {{/is}}>舊 - 新</option>
-      <option value="desc" {{#is option 'desc' }} selected {{/is}}>新 - 舊</option>
-      <option value="n-asc" {{#is option 'n-asc' }} selected {{/is}}>A - Z</option>
-      <option value="n-desc" {{#is option 'n-desc' }} selected {{/is}}>Z - A</option>
-      <option value="category-asc" {{#is option 'category-asc' }} selected {{/is}}>類別</option>
-      <option value="region-asc" {{#is option 'region-asc' }} selected {{/is}}>地區</option>
+      <option value="asc" {{#if (equal option 'asc' ) }} selected {{/if}}>舊 - 新</option>
+      <option value="desc" {{#if (equal option 'desc' ) }} selected {{/if}}>新 - 舊</option>
+      <option value="n-asc" {{#if (equal option 'n-asc' ) }} selected {{/if}}>A - Z</option>
+      <option value="n-desc" {{#if (equal option 'n-desc' ) }} selected {{/if}}>Z - A</option>
+      <option value="category-asc" {{#if (equal option 'category-asc' ) }} selected {{/if}}>類別</option>
+      <option value="region-asc" {{#if (equal option 'region-asc' ) }} selected {{/if}}>地區</option>
     </select>
   </form>
 </div>
