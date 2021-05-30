@@ -5,7 +5,6 @@ const router = express.Router()
 const RestaurantModel = require('../../models/restaurant')
 const regex = require('../../public/javascripts/regex')
 
-
 // render new page
 router.get('/new', (req, res) => {
   return res.render('new')

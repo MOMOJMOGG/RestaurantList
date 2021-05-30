@@ -3,7 +3,6 @@ const express = require('express')
 const router = express.Router()
 // 引用 Todo model
 const RestaurantModel = require('../../models/restaurant')
-const User = require('../../models/user')
 const sortRules = require('../../public/javascripts/sortRules')
 
 router.get('/', (req, res) => {
@@ -20,8 +19,9 @@ router.get('/', (req, res) => {
       .lean()
       .sort({ _id: 'asc' }) // asc, desc
       .then(restaurantList => {
+        const keywordLower = keyword.toLowerCase()
         const searchResults = restaurantList.filter((rest) => {
-          return rest.name_en.toLowerCase().includes(keyword.toLowerCase()) || rest.name.toLowerCase().includes(keyword.toLowerCase())
+          return rest.name_en.toLowerCase().includes(keywordLower) || rest.name.toLowerCase().includes(keywordLower) || rest.category.toLowerCase().includes(keywordLower)
         })
 
         if (searchResults.length === 0) {
@@ -37,6 +37,7 @@ router.get('/', (req, res) => {
 
 router.post('/', (req, res) => {
   const userId = req.user._id
+  console.log(req.body)
   const sortDict = sortRules(req.body.sort)
   RestaurantModel.find({ userId })
     .lean()
